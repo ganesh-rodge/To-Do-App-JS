@@ -1,59 +1,64 @@
-let addBtn  = document.querySelector("button");
-let inputBox = document.querySelector("input");
+const add = document.querySelector("#add-btn"); 
+const taskDiv = document.querySelector(".task-div");
 
-let ul = document.querySelector("#list");
+// Function to save tasks to local storage
+const saveToLocalStorage = () => {
+    const tasks = [...taskDiv.querySelectorAll(".display-ele span")].map(task => ({
+        text: task.textContent,
+        completed: task.classList.contains("overline")
+    }));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+};
 
+// Function to load tasks from local storage
+const loadFromLocalStorage = () => {
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.forEach(task => {
+        const listElement = createListElement(task.text);
+        if (task.completed) {
+            listElement.querySelector("span").classList.add("overline");
+        }
+        taskDiv.appendChild(listElement);
+    });
+};
 
-const addToList = () =>{
-    if(inputBox.value === ""){
-        return;
+// Create list element
+const createListElement = (value) => {
+    const listElement = document.createElement('div');
+    listElement.classList.add('display-ele');
+    listElement.innerHTML = `
+        <div class="task-checkbox">
+            <img src="resources/checkbox.png" alt="" class="checkbox">
+            <span>${value}</span>
+        </div>
+        <img src="resources/delete.png" alt="" class="remove-btn"></img>`;
+    return listElement;
+};
+
+// Add button click event
+add.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    const input = document.querySelector("#input-box");
+    const inputValue = input.value.trim();
+    let listElement;
+    if (inputValue !== '') {
+        listElement = createListElement(inputValue);
+        taskDiv.appendChild(listElement);
+        saveToLocalStorage(); // Save to local storage
     }
-    let li = document.createElement("li");
-    li.innerText = inputBox.value;
-    li.classList.add("listitem");
-    console.log(li.innerText);
-    ul.appendChild(li);
-    inputBox.value = "";
-    saveData();
+    input.value = '';
+});
 
-    let span = document.createElement("span");
-    span.innerHTML = "\u00d7";
-    li.appendChild(span);
-}
-
-addBtn.addEventListener("click", addToList);
-inputBox.addEventListener("keyup", (event) =>{
-    if(event.key==="Enter"){
-        console.log("enter pressed");
-        addToList();
+// Task div click event
+taskDiv.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('checkbox')) {
+        evt.target.nextElementSibling.classList.toggle('overline');
+        saveToLocalStorage(); // Save updated tasks
+    } else if (evt.target.classList.contains('remove-btn')) {
+        evt.target.parentElement.remove();
+        saveToLocalStorage(); // Save updated tasks
     }
-})
+});
 
-const clickList = () =>{
-    listitem.classList.add("taskdone");
-    console.log("Hello");
-}
-
-
-
-ul.addEventListener("click", function(e){
-    if(e.target.tagName === "LI"){
-        e.target.classList.toggle("taskdone");
-        saveData();
-    }
-    else if(e.target.tagName === "SPAN"){
-        e.target.parentElement.remove();
-        saveData();
-    }
-}, false)
-
-function saveData(){
-    localStorage.setItem("data", ul.innerHTML);
-    console.log("data saved");
-}
-
-function showTask(){
-    ul.innerHTML = localStorage.getItem("data");
-}
-showTask();
-
+// Load tasks when the page loads
+document.addEventListener("DOMContentLoaded", loadFromLocalStorage);

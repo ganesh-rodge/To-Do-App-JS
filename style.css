@@ -1,132 +1,84 @@
-*{
-    padding: 0px;
-    margin: 0px;
-}
-
 body{
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(145deg,#246316 1%,#32913a , #3B8F42, #376b34, #2f5a32);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background-color: #2A2B2E;
 }
 
-.inputbox{
-    background-color: #FFD7CB;
-    height: 3.5rem;
-    width: 50%;
+.input-div form{
+    width: 90%;
+    margin: 20px auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    position: absolute;
-    left: 25%;
-    top: 10%;
+    background-color: beige;
+    padding: 10px;
+    /* border: 2px solid; */
 }
 
 input{
-    height: 2.6rem;
-    width: 80%;
-    border: none;
-    margin-left: 7px;
-    font-size: 28px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    padding-left: 8px;
-}
-
-input:focus{
-    outline: none;
+    width: 70%;
+    height: 30px;
+    font-size: 25px;
+    font-weight: 600;
+    border: 2px solid;
 }
 
 button{
-    margin: 4px 10px;
-    border: none;
-    background-color: #6c94c9;
+    width: 25%;
+    max-width: 150px;
+    height: 35px;
+    font-size: 24px;
+    font-weight: 550;
     color: white;
-    padding: 5px 16px;
-    font-size: 30px;
-    border-radius: 12px;
-    cursor: pointer;
+    background-color: #4D7298;
+    border: none;
+    border-radius: 7px;
+    
 }
 
 button:hover{
-    background-color: #637ea2;
-}
-
-button:active{
-    box-shadow: 2px 2px 4px black;
-}
-
-.taskbox{
-    height: 60vh;
-    width: 50vw;
-    background-color: #FFB1E1;
-    /* position: fixed;
-    left: 25%;
-    top: 22%; */
-    overflow-y: scroll;
-}
-
-li{
-    list-style: none;
-    background-color: #DBBBF5;
-    margin: 15px auto;
-    font-size: 30px;
-    padding: 8px 10px 8px 50px;
+    box-shadow: 5px 5px 3px grey;
     cursor: pointer;
-    user-select: none;
-    position: relative;
 }
 
-.taskdone{
+.display-ele{
+    color: white;
+    font-size: 25px;
+    display: flex;
+    border: 2px solid green;
+    background-color: #4D7298;
+    width: 85%;
+    margin: auto;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px auto;
+    /* display: none; */
+}
+
+.display-ele span{
+    /* border: 2px solid; */
+    max-width: 90%;
+}
+
+.task-checkbox{
+    display: flex;
+    align-items: center;
+    max-width: 84%;
+}
+
+.display-ele .checkbox{
+    width: 35px;
+    margin-right: 8%;
+}
+
+.checkbox:hover, .remove-btn:hover{
+    transform: scale(1.07);
+    cursor: pointer;
+}
+
+.display-none{
+    display: none;
+}
+
+.overline{
     text-decoration: line-through;
-    background-color: #ffc183;
-}
-
-.listitem::before{
-    content: '';
-    position: absolute;
-    height: 28px;
-    width: 28px;
-    border-radius: 50%;
-    background-image: url(resources/checkbox.png);
-    background-size: cover;
-    background-position: center;
-    top: 12px;
-    left: 8px;
-}
-
-.taskdone::before{
-    background-image: url(resources/checkedbox.png);
-}
-
-ul li span{
-    position: absolute;
-    right: 0px;
-    top: 5px;
-    height: 40px;
-    width: 40px;
-    font-size: 42px;
-    color: #555;
-    line-height: 40px;
-    text-align: center;
-}
-
-ul li span:hover{
-    background-color: #9d9d9d;
-    border-radius:50%;
-}
-
-@media (min-width:0px) and (max-width:986){
-    .inputbox, .taskbox{
-        width: 70%;
-    }
-    
-    button{
-        font-size: 20px;
-        padding: 3px 10px;
-    }
-    
+    color: rgb(179, 179, 179);
 }
